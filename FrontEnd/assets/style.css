@@ -225,3 +225,12 @@ footer nav ul {
 	flex-direction: column;
 	gap: 20px;
 }
+
+/* #login input[type="text"] {
+	border: none;
+} */
+
+#login input[type="submit"] {
+	border: none;
+	padding: 10px 15px 10px 15px;
+}
