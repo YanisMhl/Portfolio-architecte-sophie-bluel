@@ -3,6 +3,7 @@ import { getWork } from "./get_data.js";
 const workData = await getWork();
 console.log(workData);
 
+
 /*
     DYNAMIC GALLERY
 */
@@ -29,8 +30,6 @@ function updateGallery(data, gallery) {
 }
 
 updateGallery(workData, galleryElement);
-
-
 
 
 /*
@@ -69,5 +68,5 @@ for (let i = 0; i < nbFiltres; i++) {
             updateGallery(workData, galleryElement);
         }
     });
-}
+} 
 
