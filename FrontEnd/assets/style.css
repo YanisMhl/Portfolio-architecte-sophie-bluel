@@ -136,6 +136,20 @@ li:hover {
 	margin-bottom: 1em;
 }
 
+.title {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 30px;
+}
+
+.admin-edit {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+	margin-bottom: 2em;
+}
 
 .filtres {
 	display: flex;
