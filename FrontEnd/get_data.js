@@ -19,7 +19,6 @@ export async function loginUser(userEmail, userPassword) {
             body: userData
         });
         if (response.ok) {
-            console.log("Connexion réussie");
             const data = await response.json();
             const user = new User(data.userId, data.token);
             return user;
@@ -27,7 +26,6 @@ export async function loginUser(userEmail, userPassword) {
             const errorElement = document.querySelector(".error");
             //404 : utilisateur n'existe pas
             if (response.status === 404) {
-                console.log("utilisateur n'existe pas.");
                 errorElement.innerHTML = "Cet utilisateur n'existe pas.";
             }
 
