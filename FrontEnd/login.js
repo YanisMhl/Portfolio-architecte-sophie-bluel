@@ -16,5 +16,5 @@ formulaireConnexion.addEventListener("submit", async function(event) {
     } catch(err) {
         console.log(err);
     }
-});
+}); 
 
