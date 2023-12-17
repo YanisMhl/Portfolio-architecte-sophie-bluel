@@ -70,3 +70,20 @@ for (let i = 0; i < nbFiltres; i++) {
     });
 } 
 
+function switchAdmin(isAdmin) {
+    const banner = document.querySelector(".admin-banner");
+    const login = document.getElementById("login-btn");
+    const logout = document.getElementById("logout-btn");
+    const edit = document.querySelector(".admin-edit");
+    const filters = document.querySelector(".filtres");
+
+    banner.classList.toggle("hidden", !isAdmin);
+    login.classList.toggle("hidden", isAdmin);
+    logout.classList.toggle("hidden", !isAdmin);
+    edit.classList.toggle("hidden", !isAdmin);
+    filters.classList.toggle("hidden", isAdmin);
+    adminMod = isAdmin;
+}
+
+const logout = document.getElementById("logout-btn");
+logout.addEventListener("click", () => switchAdmin(false));
