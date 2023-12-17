@@ -149,6 +149,7 @@ li:hover {
 	align-items: center;
 	gap: 5px;
 	margin-bottom: 2em;
+	cursor: pointer;
 }
 
 .filtres {
@@ -236,6 +237,10 @@ footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
+}
+
+.hidden {
+	display: none;
 }
 
 #login {
