@@ -53,6 +53,16 @@ body {
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
+
+.admin-banner {
+	background: black;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 50px;
+}
+
 header {
 	display: flex;
 	justify-content: space-between;
