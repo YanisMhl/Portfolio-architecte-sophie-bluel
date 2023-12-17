@@ -8,3 +8,5 @@ class User {
         console.log(`id : ${this.id}\ntoken : ${this.token}`);
     }
 }
+
+export default User;

@@ -11,10 +11,9 @@ formulaireConnexion.addEventListener("submit", async function(event) {
     try {
     const user = await loginUser(email, password);
     localStorage.setItem("user_token", user.token);
-    localStorage.setItem("user_id", user.userId);
+    localStorage.setItem("user_id", user.id);
     localStorage.setItem("is_connected", true);
     window.location.href = "../index.html";
-    console.log(`user id : ${localStorage.getItem("user_id")}\nuser token : ${localStorage.getItem("user_token")}`);
     } catch(err) {
         console.log(err);
     }
