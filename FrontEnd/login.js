@@ -8,7 +8,14 @@ formulaireConnexion.addEventListener("submit", async function(event) {
     event.preventDefault();
     const email = event.target.querySelector("[name=email]").value;
     const password = event.target.querySelector("[name=password]").value;
+    try {
     const user = await loginUser(email, password);
-    console.log(user);
+    localStorage.setItem("user_token", user.token);
+    localStorage.setItem("user_id", user.userId);
+    window.location.href = "../index.html";
+    console.log(`user id : ${localStorage.getItem("user_id")}\nuser token : ${localStorage.getItem("user_token")}`);
+    } catch(err) {
+        console.log(err);
+    }
 });
 
