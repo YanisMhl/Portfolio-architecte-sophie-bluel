@@ -82,8 +82,16 @@ function switchAdmin(isAdmin) {
     logout.classList.toggle("hidden", !isAdmin);
     edit.classList.toggle("hidden", !isAdmin);
     filters.classList.toggle("hidden", isAdmin);
-    adminMod = isAdmin;
+}
+
+if (localStorage.getItem("is_connected") === "true") {
+    switchAdmin(true);
 }
 
 const logout = document.getElementById("logout-btn");
-logout.addEventListener("click", () => switchAdmin(false));
+logout.addEventListener("click", () => {
+    switchAdmin(false);
+    localStorage.removeItem("user_id");
+    localStorage.removeItem("user_token");
+    localStorage.removeItem("is_connected");
+});
