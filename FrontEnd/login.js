@@ -14,7 +14,16 @@ formulaireConnexion.addEventListener("submit", async function(event) {
     localStorage.setItem("is_connected", true);
     window.location.href = "../index.html";
     } catch(err) {
-        console.log(err);
+       const status = parseInt(err.message);
+       const errorElement = document.querySelector(".error");
+
+       if (status === 404) {
+           errorElement.innerHTML = "Cet utilisateur n'existe pas.";
+       }
+
+       if (status === 401) {
+           errorElement.innerHTML = "Mauvais mot de passe.";
+       }
     }
 }); 
 

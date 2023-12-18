@@ -23,19 +23,9 @@ export async function loginUser(userEmail, userPassword) {
             const user = new User(data.userId, data.token);
             return user;
         } else {
-            const errorElement = document.querySelector(".error");
-            //404 : utilisateur n'existe pas
-            if (response.status === 404) {
-                errorElement.innerHTML = "Cet utilisateur n'existe pas.";
-            }
-
-            //401 : mauvais mot de passe
-            if (response.status === 401) {
-                errorElement.innerHTML = "Mauvais mot de passe.";
-            }
-            throw new Error(`${response.status} : ${response.statusText}`);
+            throw new Error(response.status);
         }
     } catch(err) {
-        console.log(err);
+        throw err;
     }
 }
