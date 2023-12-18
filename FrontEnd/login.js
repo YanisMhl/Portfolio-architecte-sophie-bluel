@@ -7,23 +7,34 @@ formulaireConnexion.addEventListener("submit", async function(event) {
     event.preventDefault();
     const email = event.target.querySelector("[name=email]").value;
     const password = event.target.querySelector("[name=password]").value;
-    try {
-    const user = await loginUser(email, password);
-    localStorage.setItem("user_token", user.token);
-    localStorage.setItem("user_id", user.id);
-    localStorage.setItem("is_connected", true);
-    window.location.href = "../index.html";
-    } catch(err) {
-       const status = parseInt(err.message);
-       const errorElement = document.querySelector(".error");
 
-       if (status === 404) {
-           errorElement.innerHTML = "Cet utilisateur n'existe pas.";
-       }
+    const errorElement = document.querySelector(".error");
+    //Check si email conforme
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailRegex.test(email) && password.length !== 0) {
+        try {
+        const user = await loginUser(email, password);
+        localStorage.setItem("user_token", user.token);
+        localStorage.setItem("user_id", user.id);
+        localStorage.setItem("is_connected", true);
+        window.location.href = "../index.html";
+        } catch(err) {
+        const status = parseInt(err.message);
 
-       if (status === 401) {
-           errorElement.innerHTML = "Mauvais mot de passe.";
-       }
+        if (status === 404) {
+            errorElement.innerHTML = "Cet utilisateur n'existe pas.";
+        }
+
+        if (status === 401) {
+            errorElement.innerHTML = "Mauvais mot de passe.";
+        }
+        }
+    } else {
+        if (!emailRegex.test(email)) {
+            errorElement.innerHTML = "email au mauvais format.";
+        } else {
+            errorElement.innerHTML = "mot de passe non renseigné.";
+        }
     }
 }); 
 
