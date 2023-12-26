@@ -50,7 +50,6 @@ function updateCategories(data, filters) {
 updateGallery(workData, galleryElement);
 updateCategories(categoriesData, filtersElement);
 
-let adminMod = false;
 
 function switchAdmin(isAdmin) {
     const login = document.getElementById("login-btn");
@@ -68,20 +67,13 @@ function switchAdmin(isAdmin) {
     filters.classList.toggle("hidden", isAdmin);
 }
 
+const login = document.getElementById("login-btn");
 if (localStorage.getItem("is_connected") === "true") {
     switchAdmin(true);
-    adminMod = true;
-}
-
-const login = document.getElementById("login-btn");
-if (adminMod) {
     login.addEventListener("click", () => {
         switchAdmin(false);
         localStorage.removeItem("user_id");
         localStorage.removeItem("user_token");
         localStorage.removeItem("is_connected");
-        adminMod = false;
     });
 }
-
-console.log(adminMod);
