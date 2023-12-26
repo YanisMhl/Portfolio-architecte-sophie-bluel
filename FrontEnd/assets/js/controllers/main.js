@@ -57,6 +57,7 @@ function switchAdmin(isAdmin) {
         login.innerHTML = "logout";
     } else {
         login.innerHTML = "login";
+        login.href = "./login";
     }
     const banner = document.querySelector(".admin-banner");
     const edit = document.querySelector(".admin-edit");
@@ -69,6 +70,7 @@ function switchAdmin(isAdmin) {
 
 const login = document.getElementById("login-btn");
 if (localStorage.getItem("is_connected") === "true") {
+    console.log("it's here !");
     switchAdmin(true);
     login.addEventListener("click", () => {
         switchAdmin(false);
@@ -77,3 +79,10 @@ if (localStorage.getItem("is_connected") === "true") {
         localStorage.removeItem("is_connected");
     });
 }
+
+const editBtn = document.querySelector(".admin-edit");
+const modal = document.querySelector("dialog");
+
+editBtn.addEventListener("click", () => {
+    modal.showModal();
+});
