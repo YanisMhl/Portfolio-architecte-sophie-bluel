@@ -82,7 +82,15 @@ if (localStorage.getItem("is_connected") === "true") {
 
 const editBtn = document.querySelector(".admin-edit");
 const modal = document.querySelector("dialog");
+const miniGallery = document.querySelector(".mini-gallery");
 
 editBtn.addEventListener("click", () => {
     modal.showModal();
+    workData.forEach(work => {
+        const img = document.createElement("img");
+        console.log(work.imageUrl);
+        img.src = work.imageUrl;
+        img.classList.add("modal-img");
+        miniGallery.appendChild(img);
+    });
 });

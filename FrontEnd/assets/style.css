@@ -269,3 +269,19 @@ footer nav ul {
 .error {
 	color: red;
 }
+
+dialog {
+	max-width: 400px;
+	max-height: 500px;
+}
+
+.mini-gallery {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 100px;
+}
+
+.modal-img {
+	width: 200px;
+	height: 200px;
+}
