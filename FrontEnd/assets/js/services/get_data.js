@@ -1,9 +1,20 @@
-import User from './user.js';
+import User from '../models/user.js';
+import Work from '../models/work.js';
+import Category from '../models/category.js';
+
 
 export async function getWork() {
     const data = await fetch("http://localhost:5678/api/works").then(response => response.json());
-    return data;
+    
+    return data.map((work) => new Work(work));
 }
+
+export async function getCategories() {
+    const data = await fetch("http://localhost:5678/api/categories").then(response => response.json());
+    
+    return data.map((category) => new Category(category.id, category.name));
+}
+
 
 export async function loginUser(userEmail, userPassword) {
     const userRaw = {
@@ -29,3 +40,4 @@ export async function loginUser(userEmail, userPassword) {
         throw err;
     }
 }
+
