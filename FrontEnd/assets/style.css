@@ -354,3 +354,45 @@ dialog h3 {
 	padding-left: 40px;
 	padding-right: 40px;
 }
+
+.photo-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: #E8F1F6;
+	width: 420px;
+	height: 170px;
+}
+
+.photo-container i {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 76px;
+	height: 76px;
+	color: #CBD6DC;
+	margin-bottom: 10px;
+}
+
+.photo-btn {
+	border: none;
+	border-radius: 50px;
+	background: #CBD6DC;
+	color: #306685;
+	font-family: "Work Sans";
+	font-size: 14px;
+	font-weight: 500;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 30px;
+	padding-right: 30px;
+	margin-bottom: 10px;
+	cursor: pointer;
+}
+
+.photo-container p {
+	color: #444;
+	font-family: "Work Sans";
+	font-size: 10px;
+}

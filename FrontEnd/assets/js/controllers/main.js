@@ -84,12 +84,19 @@ const editBtn = document.querySelector(".admin-edit");
 const closeBtn = document.querySelector(".close-btn");
 const addBtn = document.querySelector(".add-btn");
 const modal = document.querySelector("dialog");
+const modalContainer = document.querySelector(".modal-container");
 const miniGallery = document.querySelector(".mini-gallery");
+const title = document.createElement("h3");
 
 
 editBtn.addEventListener("click", () => {
     modal.showModal();
+    modalContainer.innerHTML = "";
     miniGallery.innerHTML = "";
+
+    title.innerHTML = "Galerie photo";
+    modalContainer.appendChild(title);
+    modalContainer.appendChild(miniGallery);
     workData.forEach(work => {
         const imgContainer = document.createElement("div");
         imgContainer.classList.add("modal-img-container");
@@ -114,5 +121,31 @@ closeBtn.addEventListener("click", () => {
 });
 
 addBtn.addEventListener("click", () => {
-    modal.innerHTML = "";
+    //reset modal container
+    modalContainer.innerHTML = "";
+
+    //new title
+    title.innerHTML = "Ajout photo";
+    modalContainer.appendChild(title);
+
+    
+    const photoContainer = document.createElement("div");
+    photoContainer.classList.add("photo-container");
+
+    const photoIcon = document.createElement("i");
+    photoIcon.classList.add("fa-regular");
+    photoIcon.classList.add("fa-image");
+    photoIcon.classList.add("fa-5x");
+    photoContainer.appendChild(photoIcon);
+
+    const photoBtn = document.createElement("button");
+    photoBtn.classList.add("photo-btn");
+    photoBtn.innerHTML = "+ Ajouter photo";
+    photoContainer.appendChild(photoBtn);
+
+    const photoInfo = document.createElement("p");
+    photoInfo.innerHTML = "jpg, png : 4mo max";
+    photoContainer.appendChild(photoInfo);
+
+    modalContainer.appendChild(photoContainer);
 });
