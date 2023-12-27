@@ -88,6 +88,7 @@ const miniGallery = document.querySelector(".mini-gallery");
 
 editBtn.addEventListener("click", () => {
     modal.showModal();
+    miniGallery.innerHTML = "";
     workData.forEach(work => {
         const img = document.createElement("img");
         console.log(work.imageUrl);
