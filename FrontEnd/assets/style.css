@@ -274,9 +274,23 @@ dialog {
 	width: 630px;
 	height: 688px;
 	border-radius: 10px;
-	padding: 50px;
+	padding: 20px;
 	border: none;
 }
+
+.modal-header {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.close-btn {
+	width: 24px;
+	height: 24px;
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+
 
 .modal-container {
 	display: flex;
@@ -285,14 +299,6 @@ dialog {
 	gap: 50px;
 }
 
-.close-btn {
-	width: 24px;
-	height: 24px;
-	border: none;
-	background: none;
-	align-self: flex-end;
-	cursor: pointer;
-}
 
 .close-btn i {
 	font-weight: 700;
@@ -328,6 +334,14 @@ dialog h3 {
 .modal-img {
 	width: 80px;
 	height: 100px;
+}
+
+.modal-footer {
+	margin-top: 80px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 50px;
 }
 
 .grey-stroke {
