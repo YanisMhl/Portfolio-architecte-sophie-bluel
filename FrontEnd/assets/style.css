@@ -275,6 +275,7 @@ dialog {
 	height: 688px;
 	border-radius: 10px;
 	padding: 50px;
+	border: none;
 }
 
 .modal-container {
@@ -285,10 +286,16 @@ dialog {
 }
 
 .close-btn {
+	width: 24px;
+	height: 24px;
 	border: none;
 	background: none;
 	align-self: flex-end;
 	cursor: pointer;
+}
+
+.close-btn i {
+	font-weight: 700;
 }
 
 dialog h3 {
@@ -299,7 +306,8 @@ dialog h3 {
 .mini-gallery {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
-	gap: 10px;
+	gap: 15px;
+	row-gap: 30px;
 }
 
 .modal-img-container {
@@ -326,4 +334,9 @@ dialog h3 {
 	width: 420px;
 	height: 1px;
 	background: #B3B3B3;
+}
+
+.add-btn {
+	padding-left: 40px;
+	padding-right: 40px;
 }
