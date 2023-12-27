@@ -271,8 +271,18 @@ footer nav ul {
 }
 
 dialog {
-	max-width: 400px;
-	max-height: 500px;
+	max-width: 630px;
+	max-height: 688px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 50px;
+}
+
+dialog h3 {
+	font-size: 26px;
+	font-weight: 400;
 }
 
 .mini-gallery {
@@ -282,6 +292,6 @@ dialog {
 }
 
 .modal-img {
-	width: 200px;
-	height: 200px;
+	width: 80px;
+	height: 100px;
 }
