@@ -90,11 +90,21 @@ editBtn.addEventListener("click", () => {
     modal.showModal();
     miniGallery.innerHTML = "";
     workData.forEach(work => {
+        const imgContainer = document.createElement("div");
+        imgContainer.classList.add("modal-img-container");
+        
+        const trashIcon = document.createElement("i");
+        trashIcon.classList.add("fa-solid");
+        trashIcon.classList.add("fa-trash-can");
+        imgContainer.appendChild(trashIcon);
+
         const img = document.createElement("img");
-        console.log(work.imageUrl);
         img.src = work.imageUrl;
         img.classList.add("modal-img");
-        miniGallery.appendChild(img);
+        imgContainer.appendChild(img);
+
+        console.log(imgContainer);
+        miniGallery.appendChild(imgContainer);
     });
 });
 

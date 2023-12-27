@@ -297,13 +297,33 @@ dialog h3 {
 }
 
 .mini-gallery {
-	display: flex;
-	flex-wrap: wrap;
-	margin: 60px;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
 	gap: 10px;
+}
+
+.modal-img-container {
+	position: relative;
+}
+
+.modal-img-container i {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	color: white;
+	background-color: black;
+	padding: 5px;
+	border-radius: 5px;
+	cursor: pointer;
 }
 
 .modal-img {
 	width: 80px;
 	height: 100px;
+}
+
+.grey-stroke {
+	width: 420px;
+	height: 1px;
+	background: #B3B3B3;
 }
