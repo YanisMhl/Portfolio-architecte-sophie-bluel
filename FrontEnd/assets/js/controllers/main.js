@@ -81,6 +81,7 @@ if (localStorage.getItem("is_connected") === "true") {
 }
 
 const editBtn = document.querySelector(".admin-edit");
+const closeBtn = document.querySelector(".close-btn");
 const modal = document.querySelector("dialog");
 const miniGallery = document.querySelector(".mini-gallery");
 
@@ -93,4 +94,8 @@ editBtn.addEventListener("click", () => {
         img.classList.add("modal-img");
         miniGallery.appendChild(img);
     });
+});
+
+closeBtn.addEventListener("click", () => {
+    modal.close();
 });
