@@ -85,6 +85,7 @@ const closeBtn = document.querySelector(".close-btn");
 const modal = document.querySelector("dialog");
 const miniGallery = document.querySelector(".mini-gallery");
 
+
 editBtn.addEventListener("click", () => {
     modal.showModal();
     workData.forEach(work => {
