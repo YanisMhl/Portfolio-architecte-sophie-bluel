@@ -271,13 +271,21 @@ footer nav ul {
 }
 
 dialog {
-	max-width: 630px;
-	max-height: 688px;
+	width: 630px;
+	height: 688px;
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	gap: 50px;
+	padding: 50px;
+}
+
+.close-btn {
+	border: none;
+	background: none;
+	align-self: flex-end;
+	cursor: pointer;
 }
 
 dialog h3 {
@@ -288,7 +296,8 @@ dialog h3 {
 .mini-gallery {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 100px;
+	margin: 60px;
+	gap: 10px;
 }
 
 .modal-img {
