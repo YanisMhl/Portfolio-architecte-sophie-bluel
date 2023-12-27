@@ -82,6 +82,7 @@ if (localStorage.getItem("is_connected") === "true") {
 
 const editBtn = document.querySelector(".admin-edit");
 const closeBtn = document.querySelector(".close-btn");
+const addBtn = document.querySelector(".add-btn");
 const modal = document.querySelector("dialog");
 const miniGallery = document.querySelector(".mini-gallery");
 
@@ -92,7 +93,7 @@ editBtn.addEventListener("click", () => {
     workData.forEach(work => {
         const imgContainer = document.createElement("div");
         imgContainer.classList.add("modal-img-container");
-        
+
         const trashIcon = document.createElement("i");
         trashIcon.classList.add("fa-solid");
         trashIcon.classList.add("fa-trash-can");
@@ -110,4 +111,8 @@ editBtn.addEventListener("click", () => {
 
 closeBtn.addEventListener("click", () => {
     modal.close();
+});
+
+addBtn.addEventListener("click", () => {
+    modal.innerHTML = "";
 });
