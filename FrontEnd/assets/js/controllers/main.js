@@ -128,7 +128,7 @@ addBtn.addEventListener("click", () => {
     title.innerHTML = "Ajout photo";
     modalContainer.appendChild(title);
 
-    
+    //PHOTO
     const photoContainer = document.createElement("div");
     photoContainer.classList.add("photo-container");
 
@@ -148,4 +148,56 @@ addBtn.addEventListener("click", () => {
     photoContainer.appendChild(photoInfo);
 
     modalContainer.appendChild(photoContainer);
+
+    /* FORMULAIRE */
+
+    const photoForm = document.createElement("form");
+    photoForm.action = "#";
+    photoForm.method = "post";
+
+    //TITRE
+    const photoTitle = document.createElement("div");
+    photoTitle.classList.add("photo-title");
+
+    //label
+    const photoTitleLabel = document.createElement("label");
+    photoTitleLabel.for = "titre";
+    photoTitleLabel.innerHTML = "Titre : ";
+    photoTitle.appendChild(photoTitleLabel);
+
+    //input
+    const photoTitleInput = document.createElement("input");
+    photoTitleInput.type = "text";
+    photoTitleInput.id = "titre";
+    photoTitleInput.name = "titre";
+    photoTitle.appendChild(photoTitleInput);
+
+    photoForm.appendChild(photoTitle);
+
+    //CATEGORIE
+    const photoCategory = document.createElement("div");
+    photoCategory.classList.add("photo-category");
+
+    //label
+    const photoCategoryLabel = document.createElement("label");
+    photoCategoryLabel.for = "categorie";
+    photoCategoryLabel.innerHTML = "Catégorie :";
+    photoCategory.appendChild(photoCategoryLabel);
+
+    //select
+    const photoCategorySelect = document.createElement("select");
+    photoCategorySelect.id = "categorie";
+    photoCategorySelect.name = "categorie";
+    categoriesData.forEach((cat) => {
+        const categoryOption = document.createElement("option");
+        categoryOption.value = cat.name.toLowerCase();
+        categoryOption.innerHTML = cat.name;
+        photoCategorySelect.appendChild(categoryOption);
+    });
+
+    photoCategory.appendChild(photoCategorySelect);
+
+    photoForm.appendChild(photoCategory);
+
+    modalContainer.appendChild(photoForm);
 });
