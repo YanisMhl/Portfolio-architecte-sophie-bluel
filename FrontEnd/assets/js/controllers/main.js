@@ -152,6 +152,7 @@ addBtn.addEventListener("click", () => {
     /* FORMULAIRE */
 
     const photoForm = document.createElement("form");
+    photoForm.classList.add("photo-form");
     photoForm.action = "#";
     photoForm.method = "post";
 
@@ -161,12 +162,14 @@ addBtn.addEventListener("click", () => {
 
     //label
     const photoTitleLabel = document.createElement("label");
+    photoTitleLabel.classList.add("photo-form-label");
     photoTitleLabel.for = "titre";
-    photoTitleLabel.innerHTML = "Titre : ";
+    photoTitleLabel.innerHTML = "Titre ";
     photoTitle.appendChild(photoTitleLabel);
 
     //input
     const photoTitleInput = document.createElement("input");
+    photoTitleInput.classList.add("photo-form-input");
     photoTitleInput.type = "text";
     photoTitleInput.id = "titre";
     photoTitleInput.name = "titre";
@@ -180,20 +183,26 @@ addBtn.addEventListener("click", () => {
 
     //label
     const photoCategoryLabel = document.createElement("label");
+    photoCategoryLabel.classList.add("photo-form-label");
     photoCategoryLabel.for = "categorie";
-    photoCategoryLabel.innerHTML = "Catégorie :";
+    photoCategoryLabel.innerHTML = "Catégorie ";
     photoCategory.appendChild(photoCategoryLabel);
 
     //select
     const photoCategorySelect = document.createElement("select");
+    photoCategorySelect.classList.add("photo-form-input");
     photoCategorySelect.id = "categorie";
     photoCategorySelect.name = "categorie";
     categoriesData.forEach((cat) => {
-        const categoryOption = document.createElement("option");
-        categoryOption.value = cat.name.toLowerCase();
-        categoryOption.innerHTML = cat.name;
-        photoCategorySelect.appendChild(categoryOption);
+        if (cat.id !== 0) {
+            const categoryOption = document.createElement("option");
+            categoryOption.value = cat.name.toLowerCase();
+            categoryOption.innerHTML = cat.name;
+            photoCategorySelect.appendChild(categoryOption);
+        }
     });
+    photoCategorySelect.selectedIndex = -1;
+
 
     photoCategory.appendChild(photoCategorySelect);
 
