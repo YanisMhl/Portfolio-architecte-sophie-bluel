@@ -1,5 +1,5 @@
 import Category from "../models/category.js";
-import { getWork, getCategories } from "../services/get_data.js";
+import { getWork, getCategories, deleteWork } from "../services/get_data.js";
 
 const workData = await getWork();
 const categoriesData = await getCategories();
@@ -31,8 +31,8 @@ function updateCategories(data, filters) {
         }
         filters.appendChild(categoryButton);
         categoryButton.addEventListener("click", (event) => {
-
             const selectedFilter = document.querySelector(".selected");
+            console.log(selectedFilter);
             selectedFilter.classList.remove("selected");
             event.currentTarget.classList.add("selected");
     
@@ -57,7 +57,6 @@ function switchAdmin(isAdmin) {
         login.innerHTML = "logout";
     } else {
         login.innerHTML = "login";
-        login.href = "./login";
     }
     const banner = document.querySelector(".admin-banner");
     const edit = document.querySelector(".admin-edit");
@@ -73,10 +72,11 @@ if (localStorage.getItem("is_connected") === "true") {
     console.log("it's here !");
     switchAdmin(true);
     login.addEventListener("click", () => {
-        switchAdmin(false);
+        // switchAdmin(false);
         localStorage.removeItem("user_id");
         localStorage.removeItem("user_token");
         localStorage.removeItem("is_connected");
+        window.location.reload();
     });
 }
 
@@ -105,6 +105,15 @@ editBtn.addEventListener("click", () => {
         trashIcon.classList.add("fa-solid");
         trashIcon.classList.add("fa-trash-can");
         imgContainer.appendChild(trashIcon);
+
+        trashIcon.addEventListener("click", async () => {
+            try {
+                const deletedWorkId = await deleteWork();
+                console.log(deletedWorkId);
+            } catch (error) {
+                alert(error);
+            }
+        });
 
         const img = document.createElement("img");
         img.src = work.imageUrl;

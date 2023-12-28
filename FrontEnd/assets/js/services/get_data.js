@@ -9,6 +9,21 @@ export async function getWork() {
     return data.map((work) => new Work(work));
 }
 
+export async function deleteWork(id) {
+    const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+            "Content-Type": "application/json"
+        }
+    });
+    if (response.ok === true) {
+        return id;
+    } else {
+        throw "Une erreur est survenue lors de la suppression du travail.";
+    }
+}
+
 export async function getCategories() {
     const data = await fetch("http://localhost:5678/api/categories").then(response => response.json());
     
