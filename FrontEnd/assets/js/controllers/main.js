@@ -32,7 +32,6 @@ function updateCategories(data, filters) {
         filters.appendChild(categoryButton);
         categoryButton.addEventListener("click", (event) => {
             const selectedFilter = document.querySelector(".selected");
-            console.log(selectedFilter);
             selectedFilter.classList.remove("selected");
             event.currentTarget.classList.add("selected");
     
@@ -69,7 +68,6 @@ function switchAdmin(isAdmin) {
 
 const login = document.getElementById("login-btn");
 if (localStorage.getItem("is_connected") === "true") {
-    console.log("it's here !");
     switchAdmin(true);
     login.addEventListener("click", () => {
         // switchAdmin(false);
@@ -107,8 +105,15 @@ editBtn.addEventListener("click", () => {
         imgContainer.appendChild(trashIcon);
 
         trashIcon.addEventListener("click", async () => {
+            console.log("cliqué !");
             try {
-                const deletedWorkId = await deleteWork();
+                const deletedWorkId = await deleteWork(work.id);
+                //update l'affichage des work dans la modale
+                miniGallery.removeChild(imgContainer);
+                //update l'affichage des work dans la page home
+                const newWorkData = workData.filter((newWork) => newWork.id !== work.id);
+                updateGallery(newWorkData, galleryElement);
+
                 console.log(deletedWorkId);
             } catch (error) {
                 alert(error);
@@ -120,7 +125,6 @@ editBtn.addEventListener("click", () => {
         img.classList.add("modal-img");
         imgContainer.appendChild(img);
 
-        console.log(imgContainer);
         miniGallery.appendChild(imgContainer);
     });
 });
