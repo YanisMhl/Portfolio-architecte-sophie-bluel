@@ -133,6 +133,9 @@ closeBtn.addEventListener("click", () => {
     modal.close();
 });
 
+
+//ADD WORK
+
 addBtn.addEventListener("click", () => {
     //reset modal container
     modalContainer.innerHTML = "";
@@ -151,10 +154,25 @@ addBtn.addEventListener("click", () => {
     photoIcon.classList.add("fa-5x");
     photoContainer.appendChild(photoIcon);
 
+    //FORM
+    const photoPost = document.createElement("form");
+    photoPost.classList.add("photo-post")
+    //photoPost.method = "post";
+
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.id = "file";
+    fileInput.name = "file";
+    fileInput.innerHTML = "";
+    photoPost.appendChild(fileInput);
+
     const photoBtn = document.createElement("button");
     photoBtn.classList.add("photo-btn");
     photoBtn.innerHTML = "+ Ajouter photo";
-    photoContainer.appendChild(photoBtn);
+    
+    photoPost.appendChild(photoBtn);
+
+    photoContainer.appendChild(photoPost);
 
     const photoInfo = document.createElement("p");
     photoInfo.innerHTML = "jpg, png : 4mo max";
