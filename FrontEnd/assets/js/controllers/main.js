@@ -133,61 +133,57 @@ closeBtn.addEventListener("click", () => {
     modal.close();
 });
 
-
-//ADD WORK
-
 addBtn.addEventListener("click", () => {
-    //reset modal container
     modalContainer.innerHTML = "";
 
     //new title
     title.innerHTML = "Ajout photo";
     modalContainer.appendChild(title);
 
-    //PHOTO
+    //Formulaire
+    const photoForm = document.createElement("form");
+    photoForm.classList.add("photo-form");
+    photoForm.action = "#";
+    photoForm.method = "post";
+
+    //photo-container
     const photoContainer = document.createElement("div");
     photoContainer.classList.add("photo-container");
 
+    //icône 
     const photoIcon = document.createElement("i");
     photoIcon.classList.add("fa-regular");
     photoIcon.classList.add("fa-image");
     photoIcon.classList.add("fa-5x");
     photoContainer.appendChild(photoIcon);
 
-    //FORM
-    const photoPost = document.createElement("form");
-    photoPost.classList.add("photo-post")
-    //photoPost.method = "post";
-
-    const fileInput = document.createElement("input");
-    fileInput.type = "file";
-    fileInput.id = "file";
-    fileInput.name = "file";
-    fileInput.innerHTML = "";
-    photoPost.appendChild(fileInput);
-
-    const photoBtn = document.createElement("button");
+    //photo btn
+/*     const photoBtn = document.createElement("button");
     photoBtn.classList.add("photo-btn");
     photoBtn.innerHTML = "+ Ajouter photo";
-    
-    photoPost.appendChild(photoBtn);
+    photoForm.appendChild(photoBtn); */
 
-    photoContainer.appendChild(photoPost);
+    //file input
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = "image/*";
+    fileInput.id = "file";
+    fileInput.name = "file";
+    photoContainer.appendChild(fileInput);
 
+    fileInput.addEventListener("change", () => {
+        console.log(fileInput.files);
+    });
+
+    //photo info
     const photoInfo = document.createElement("p");
     photoInfo.innerHTML = "jpg, png : 4mo max";
     photoContainer.appendChild(photoInfo);
 
-    modalContainer.appendChild(photoContainer);
+    photoForm.appendChild(photoContainer);
 
-    /* FORMULAIRE */
 
-    const photoForm = document.createElement("form");
-    photoForm.classList.add("photo-form");
-    photoForm.action = "#";
-    photoForm.method = "post";
-
-    //TITRE
+    //Photo title
     const photoTitle = document.createElement("div");
     photoTitle.classList.add("photo-title");
 
@@ -198,7 +194,7 @@ addBtn.addEventListener("click", () => {
     photoTitleLabel.innerHTML = "Titre ";
     photoTitle.appendChild(photoTitleLabel);
 
-    //input
+    //title input
     const photoTitleInput = document.createElement("input");
     photoTitleInput.classList.add("photo-form-input");
     photoTitleInput.type = "text";
@@ -208,18 +204,18 @@ addBtn.addEventListener("click", () => {
 
     photoForm.appendChild(photoTitle);
 
-    //CATEGORIE
+    //category 
     const photoCategory = document.createElement("div");
     photoCategory.classList.add("photo-category");
 
-    //label
+    //category label
     const photoCategoryLabel = document.createElement("label");
     photoCategoryLabel.classList.add("photo-form-label");
     photoCategoryLabel.for = "categorie";
     photoCategoryLabel.innerHTML = "Catégorie ";
     photoCategory.appendChild(photoCategoryLabel);
 
-    //select
+    //category select
     const photoCategorySelect = document.createElement("select");
     photoCategorySelect.classList.add("photo-form-input");
     photoCategorySelect.id = "categorie";
@@ -234,9 +230,7 @@ addBtn.addEventListener("click", () => {
     });
     photoCategorySelect.selectedIndex = -1;
 
-
     photoCategory.appendChild(photoCategorySelect);
-
     photoForm.appendChild(photoCategory);
 
     modalContainer.appendChild(photoForm);
