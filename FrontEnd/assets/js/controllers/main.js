@@ -103,15 +103,19 @@ const closeBtn = document.querySelector(".close-btn");
 const addBtn = document.querySelector(".add-btn");
 const modal = document.querySelector("dialog");
 const modalContainer = document.querySelector(".modal-container");
+const modalFooter = document.querySelector(".modal-footer");
 const miniGallery = document.querySelector(".mini-gallery");
 const title = document.createElement("h3");
 
 
 editBtn.addEventListener("click", () => {
     modal.showModal();
+    if (modal.children[modal.children.length - 1] !== modalFooter) {
+        modal.appendChild(modalFooter);
+    }
     modalContainer.innerHTML = "";
     miniGallery.innerHTML = "";
-    addBtn.innerHTML = "Ajouter une photo";
+    modalFooter.lastChild.innerHTML = "Ajouter une photo";
 
     title.innerHTML = "Galerie photo";
     modalContainer.appendChild(title);
@@ -173,12 +177,20 @@ addBtn.addEventListener("click", () => {
     const photoIcon = newElement("i", ["fa-regular", "fa-image", "fa-5x"]);
     photoContainer.appendChild(photoIcon);
 
+
+
     //photo btn
-    //const photoBtn = newElement("button", ["photo-btn"], {innerHTML: "+ Ajouter photo"});
-    //photoForm.appendChild(photoBtn);
+    const photoBtn = newElement("button", ["photo-btn"], {innerHTML: "+ Ajouter photo"});
+    photoContainer.appendChild(photoBtn);
+
+    photoBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        fileInput.click();
+    });
+
 
     //file input
-    const fileInput = newElement("input", ["file-input"], {type: "file", accept: "image/*", id: "file", name: "file"});
+    const fileInput = newElement("input", ["file-input"], {type: "file", accept: "image/*", id: "file-upload", name: "file-upload"});
     photoContainer.appendChild(fileInput);
 
     fileInput.addEventListener("change", () => {
@@ -190,6 +202,7 @@ addBtn.addEventListener("click", () => {
                 photoIcon.style.display = "none";
                 fileInput.style.display = "none";
                 photoInfo.style.display = "none";
+                photoBtn.style.display = "none";
                 photoContainer.appendChild(imagePreview);
             };
             reader.readAsDataURL(selectedFile);
@@ -242,7 +255,6 @@ addBtn.addEventListener("click", () => {
     photoCategory.appendChild(photoCategorySelect);
     photoForm.appendChild(photoCategory);
 
-    const modalFooter = document.querySelector(".modal-footer");
     modalFooter.removeChild(addBtn);
     modal.removeChild(modalFooter);
 

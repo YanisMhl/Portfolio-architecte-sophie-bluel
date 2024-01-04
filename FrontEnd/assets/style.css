@@ -404,6 +404,10 @@ dialog h3 {
 	cursor: pointer;
 }
 
+.file-input {
+	display: none;
+}
+
 .photo-container p {
 	color: #444;
 	font-family: "Work Sans";
