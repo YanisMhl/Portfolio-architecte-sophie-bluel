@@ -228,7 +228,12 @@ addBtn.addEventListener("click", () => {
     const photoCategorySelect = newElement("select", ["photo-form-input"], {id: "categorie", name: "categorie"});
     categoriesData.forEach((cat) => {
         if (cat.id !== 0) {
-            const categoryOption = newElement("option", {value: cat.name.toLowerCase(), innerHTML: cat.name});
+            console.log(cat);
+            const categoryOption = document.createElement("option");
+            categoryOption.value = cat.name.toLowerCase();
+            categoryOption.innerHTML = cat.name;
+            //const categoryOption = newElement("option", {value: cat.name.toLowerCase(), innerHTML: cat.name});
+            //console.log(categoryOption);
             photoCategorySelect.appendChild(categoryOption);
         }
     });
@@ -242,7 +247,6 @@ addBtn.addEventListener("click", () => {
     modal.removeChild(modalFooter);
 
     const validateBtn = newElement("button", ["btn"], {innerHTML: "valider", type: "submit"});
-    console.log(validateBtn);
     modalFooter.appendChild(validateBtn);
     photoForm.appendChild(modalFooter);
     modalContainer.appendChild(photoForm);
