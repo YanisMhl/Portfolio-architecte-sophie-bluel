@@ -102,10 +102,10 @@ const editBtn = document.querySelector(".admin-edit");
 const closeBtn = document.querySelector(".close-btn");
 const modal = document.querySelector("dialog");
 const modalContainer = document.querySelector(".modal-container");
+const modalHeader = document.querySelector(".modal-header");
 const modalFooter = document.querySelector(".modal-footer");
 const miniGallery = document.querySelector(".mini-gallery");
 const title = document.createElement("h3");
-
 
 editBtn.addEventListener("click", () => {
     modal.showModal();
@@ -114,6 +114,12 @@ editBtn.addEventListener("click", () => {
     }
     modalContainer.innerHTML = "";
     miniGallery.innerHTML = "";
+
+    //previous btn
+    if (modalHeader.firstElementChild !== closeBtn) {
+        modalHeader.removeChild(modalHeader.firstElementChild);
+        modalHeader.style.justifyContent = "flex-end";
+    }
     
     modalFooter.lastElementChild.innerHTML = "Ajouter une photo";
     modalFooter.lastElementChild.type = "";
@@ -167,6 +173,13 @@ addBtn.addEventListener("click", (event) => {
     event.preventDefault();
     modalContainer.innerHTML = "";
     addBtn.innerHTML = "valider";
+
+    //previous button
+    const previousBtn = newElement("i", ["fa-solid", "fa-arrow-left", "fa-xl"]);
+    previousBtn.style.cursor = "pointer";
+    modalHeader.prepend(previousBtn);
+    modalHeader.style.justifyContent = "space-between";
+
     //new title
     title.innerHTML = "Ajout photo";
     modalContainer.appendChild(title);
