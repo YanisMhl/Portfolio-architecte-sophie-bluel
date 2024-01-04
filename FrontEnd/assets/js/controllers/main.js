@@ -8,12 +8,14 @@ const categoriesData = await getCategories();
 //UTILS
 function newElement(type, classnames, attributes = {}) {
     const result = document.createElement(type);
-    if (typeof(classnames) === "string") {
-        result.classList.add(classnames);
-    }
-    else {
-        for (let i = 0; i < classnames.length; i++) {
-            result.classList.add(classnames[i]);
+    if (classnames) {
+        if (typeof(classnames) === "string") {
+            result.classList.add(classnames);
+        }
+        else {
+            for (let i = 0; i < classnames.length; i++) {
+                result.classList.add(classnames[i]);
+            }
         }
     }
     for (const [key, value] of Object.entries(attributes)) {
@@ -146,9 +148,13 @@ editBtn.addEventListener("click", () => {
     });
 });
 
+
+
 closeBtn.addEventListener("click", () => {
     modal.close();
 });
+
+
 
 addBtn.addEventListener("click", () => {
     modalContainer.innerHTML = "";
@@ -167,32 +173,20 @@ addBtn.addEventListener("click", () => {
     const photoIcon = newElement("i", ["fa-regular", "fa-image", "fa-5x"]);
     photoContainer.appendChild(photoIcon);
 
-
     //photo btn
-/*     const photoBtn = document.createElement("button");
-    photoBtn.classList.add("photo-btn");
-    photoBtn.innerHTML = "+ Ajouter photo";
-    photoForm.appendChild(photoBtn); */
+    //const photoBtn = newElement("button", ["photo-btn"], {innerHTML: "+ Ajouter photo"});
+    //photoForm.appendChild(photoBtn);
 
     //file input
-    const fileInput = document.createElement("input");
-    fileInput.classList.add("file-input");
-    fileInput.type = "file";
-    fileInput.accept = "image/*";
-    fileInput.id = "file";
-    fileInput.name = "file";
-    photoContainer.appendChild(fileInput);
-
     const fileInput = newElement("input", ["file-input"], {type: "file", accept: "image/*", id: "file", name: "file"});
+    photoContainer.appendChild(fileInput);
 
     fileInput.addEventListener("change", () => {
         const selectedFile = fileInput.files[0];
         if (selectedFile) {
             const reader = new FileReader();
             reader.onload = (e) => {
-                const imagePreview = document.createElement("img");
-                imagePreview.classList.add("image-preview");
-                imagePreview.src = e.target.result;
+                const imagePreview = newElement("img", ["image-preview"], {src: e.target.result});
                 photoIcon.style.display = "none";
                 fileInput.style.display = "none";
                 photoInfo.style.display = "none";
@@ -203,55 +197,38 @@ addBtn.addEventListener("click", () => {
     });
 
     //photo info
-    const photoInfo = document.createElement("p");
-    photoInfo.innerHTML = "jpg, png : 4mo max";
+    const photoInfo = newElement("p", null, {innerHTML: "jpg, png : 4mo max"});
     photoContainer.appendChild(photoInfo);
 
     photoForm.appendChild(photoContainer);
 
-
     //Photo title
-    const photoTitle = document.createElement("div");
-    photoTitle.classList.add("photo-title");
+    const photoTitle = newElement("div", ["photo-title"]);
 
     //label
-    const photoTitleLabel = document.createElement("label");
-    photoTitleLabel.classList.add("photo-form-label");
-    photoTitleLabel.for = "titre";
-    photoTitleLabel.innerHTML = "Titre ";
+    const photoTitleLabel = newElement("label", ["photo-form-label"], {for: "titre", innerHTML: "Titre "});
     photoTitle.appendChild(photoTitleLabel);
 
+
     //title input
-    const photoTitleInput = document.createElement("input");
-    photoTitleInput.classList.add("photo-form-input");
-    photoTitleInput.type = "text";
-    photoTitleInput.id = "titre";
-    photoTitleInput.name = "titre";
+    const photoTitleInput = newElement("input", ["photo-form-input"], {type: "text", id: "titre", name: "titre"});
     photoTitle.appendChild(photoTitleInput);
 
     photoForm.appendChild(photoTitle);
 
     //category 
-    const photoCategory = document.createElement("div");
-    photoCategory.classList.add("photo-category");
+    const photoCategory = newElement("div", ["photo-category"]);
 
     //category label
-    const photoCategoryLabel = document.createElement("label");
-    photoCategoryLabel.classList.add("photo-form-label");
-    photoCategoryLabel.for = "categorie";
-    photoCategoryLabel.innerHTML = "Catégorie ";
+    const photoCategoryLabel = newElement("label", ["photo-form-label"], {for: "categorie", innerHTML: "Catégorie : "});
     photoCategory.appendChild(photoCategoryLabel);
 
+
     //category select
-    const photoCategorySelect = document.createElement("select");
-    photoCategorySelect.classList.add("photo-form-input");
-    photoCategorySelect.id = "categorie";
-    photoCategorySelect.name = "categorie";
+    const photoCategorySelect = newElement("select", ["photo-form-input"], {id: "categorie", name: "categorie"});
     categoriesData.forEach((cat) => {
         if (cat.id !== 0) {
-            const categoryOption = document.createElement("option");
-            categoryOption.value = cat.name.toLowerCase();
-            categoryOption.innerHTML = cat.name;
+            const categoryOption = newElement("option", {value: cat.name.toLowerCase(), innerHTML: cat.name});
             photoCategorySelect.appendChild(categoryOption);
         }
     });
@@ -264,10 +241,8 @@ addBtn.addEventListener("click", () => {
     modalFooter.removeChild(addBtn);
     modal.removeChild(modalFooter);
 
-    const validateBtn = document.createElement("button");
-    validateBtn.innerHTML = "valider";
-    validateBtn.type = "submit";
-    validateBtn.classList.add("btn");
+    const validateBtn = newElement("button", ["btn"], {innerHTML: "valider", type: "submit"});
+    console.log(validateBtn);
     modalFooter.appendChild(validateBtn);
     photoForm.appendChild(modalFooter);
     modalContainer.appendChild(photoForm);
