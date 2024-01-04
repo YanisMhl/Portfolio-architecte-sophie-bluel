@@ -418,3 +418,7 @@ dialog h3 {
 	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09); 
 	padding: 20px;
 }
+
+.image-preview {
+	max-height: 170px;
+}

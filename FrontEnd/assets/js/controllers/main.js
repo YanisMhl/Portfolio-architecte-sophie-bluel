@@ -91,6 +91,7 @@ editBtn.addEventListener("click", () => {
     modal.showModal();
     modalContainer.innerHTML = "";
     miniGallery.innerHTML = "";
+    addBtn.innerHTML = "Ajouter une photo";
 
     title.innerHTML = "Galerie photo";
     modalContainer.appendChild(title);
@@ -135,7 +136,7 @@ closeBtn.addEventListener("click", () => {
 
 addBtn.addEventListener("click", () => {
     modalContainer.innerHTML = "";
-
+    addBtn.innerHTML = "valider";
     //new title
     title.innerHTML = "Ajout photo";
     modalContainer.appendChild(title);
@@ -143,8 +144,8 @@ addBtn.addEventListener("click", () => {
     //Formulaire
     const photoForm = document.createElement("form");
     photoForm.classList.add("photo-form");
-    photoForm.action = "#";
     photoForm.method = "post";
+    photoForm.enctype = "multipart/form-data";
 
     //photo-container
     const photoContainer = document.createElement("div");
@@ -165,6 +166,7 @@ addBtn.addEventListener("click", () => {
 
     //file input
     const fileInput = document.createElement("input");
+    fileInput.classList.add("file-input");
     fileInput.type = "file";
     fileInput.accept = "image/*";
     fileInput.id = "file";
@@ -172,7 +174,20 @@ addBtn.addEventListener("click", () => {
     photoContainer.appendChild(fileInput);
 
     fileInput.addEventListener("change", () => {
-        console.log(fileInput.files);
+        const selectedFile = fileInput.files[0];
+        if (selectedFile) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const imagePreview = document.createElement("img");
+                imagePreview.classList.add("image-preview");
+                imagePreview.src = e.target.result;
+                photoIcon.style.display = "none";
+                fileInput.style.display = "none";
+                photoInfo.style.display = "none";
+                photoContainer.appendChild(imagePreview);
+            };
+            reader.readAsDataURL(selectedFile);
+        }
     });
 
     //photo info
@@ -233,5 +248,31 @@ addBtn.addEventListener("click", () => {
     photoCategory.appendChild(photoCategorySelect);
     photoForm.appendChild(photoCategory);
 
+    console.log(modalContainer);
+    const modalFooter = document.querySelector(".modal-footer");
+    modalFooter.removeChild(addBtn);
+    modal.removeChild(modalFooter);
+
+    const validateBtn = document.createElement("button");
+    validateBtn.innerHTML = "valider";
+    validateBtn.type = "submit";
+    validateBtn.classList.add("btn");
+    modalFooter.appendChild(validateBtn);
+    photoForm.appendChild(modalFooter);
     modalContainer.appendChild(photoForm);
+    console.log(modalContainer);
+
+    photoForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        if (fileInput.files.length === 0) {
+            alert("Veiller sélectionner un fichier.");
+        }
+
+        if (photoTitleInput.value === "" || photoCategorySelect.value === "") {
+            alert("Veiller remplir tous les champs du formulaire.");
+        }
+        const selectedFile = fileInput.files[0];
+        console.log(selectedFile);
+        console.log(`titre : ${photoTitleInput.value}\ncatégorie : ${photoCategorySelect.value}`);
+    });
 });
