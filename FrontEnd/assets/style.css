@@ -248,7 +248,7 @@ footer nav ul {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 50px;
+	gap: 20px;
 }
 
 #login form {
@@ -273,6 +273,14 @@ footer nav ul {
 .connexion-form-input {
 	width: 380px;
 	height: 50px;
+}
+
+.no-password {
+	color: #3D3D3D;
+	font-family: "Work Sans";
+	font-size: 14px;
+	font-weight: 500;
+
 }
 
 dialog {
@@ -429,4 +437,11 @@ dialog h3 {
 
 .image-preview {
 	max-height: 170px;
+}
+
+footer {
+	color: #000;
+	font-family: "Work Sans";
+	font-size: 14px;
+	font-weight: 300;
 }

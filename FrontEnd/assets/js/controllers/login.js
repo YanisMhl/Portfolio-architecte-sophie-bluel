@@ -20,8 +20,10 @@ formulaireConnexion.addEventListener("submit", async function (event) {
             window.location.href = "../index.html";
         } catch (err) {
             errorElement.innerHTML = "Mauvais email ou mot de passe.";
+            errorElement.classList.remove("hidden");
         }
     } else {
+        errorElement.classList.remove("hidden");
         if (!emailRegex.test(email)) {
             errorElement.innerHTML = "email au mauvais format.";
         } else {

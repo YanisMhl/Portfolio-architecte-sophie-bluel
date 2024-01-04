@@ -5,6 +5,23 @@ import { getWork, getCategories, deleteWork, uploadWork } from "../services/get_
 const workData = await getWork();
 const categoriesData = await getCategories();
 
+//UTILS
+function newElement(type, classnames, attributes = {}) {
+    const result = document.createElement(type);
+    if (typeof(classnames) === "string") {
+        result.classList.add(classnames);
+    }
+    else {
+        for (let i = 0; i < classnames.length; i++) {
+            result.classList.add(classnames[i]);
+        }
+    }
+    for (const [key, value] of Object.entries(attributes)) {
+        result[key] = value;
+    }
+    return result;
+}
+
 /*
     DYNAMIC GALLERY
 */
@@ -141,21 +158,15 @@ addBtn.addEventListener("click", () => {
     modalContainer.appendChild(title);
 
     //Formulaire
-    const photoForm = document.createElement("form");
-    photoForm.classList.add("photo-form");
-    photoForm.method = "post";
-    photoForm.enctype = "multipart/form-data";
+    const photoForm = newElement("form", ["photo-form"], {method: "post", enctype: "multipart/form-data"});
 
     //photo-container
-    const photoContainer = document.createElement("div");
-    photoContainer.classList.add("photo-container");
+    const photoContainer = newElement("div", ["photo-container"]);
 
     //icône 
-    const photoIcon = document.createElement("i");
-    photoIcon.classList.add("fa-regular");
-    photoIcon.classList.add("fa-image");
-    photoIcon.classList.add("fa-5x");
+    const photoIcon = newElement("i", ["fa-regular", "fa-image", "fa-5x"]);
     photoContainer.appendChild(photoIcon);
+
 
     //photo btn
 /*     const photoBtn = document.createElement("button");
@@ -171,6 +182,8 @@ addBtn.addEventListener("click", () => {
     fileInput.id = "file";
     fileInput.name = "file";
     photoContainer.appendChild(fileInput);
+
+    const fileInput = newElement("input", ["file-input"], {type: "file", accept: "image/*", id: "file", name: "file"});
 
     fileInput.addEventListener("change", () => {
         const selectedFile = fileInput.files[0];
