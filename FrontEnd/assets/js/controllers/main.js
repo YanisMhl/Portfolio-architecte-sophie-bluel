@@ -107,7 +107,7 @@ const modalFooter = document.querySelector(".modal-footer");
 const miniGallery = document.querySelector(".mini-gallery");
 const title = document.createElement("h3");
 
-editBtn.addEventListener("click", () => {
+function updateEditModal() {
     modal.showModal();
     if (modal.children[modal.children.length - 1] !== modalFooter) {
         modal.appendChild(modalFooter);
@@ -158,9 +158,11 @@ editBtn.addEventListener("click", () => {
 
         miniGallery.appendChild(imgContainer);
     });
+}
+
+editBtn.addEventListener("click", () => {
+    updateEditModal();
 });
-
-
 
 closeBtn.addEventListener("click", () => {
     modal.close();
@@ -168,17 +170,20 @@ closeBtn.addEventListener("click", () => {
 
 const addBtn = document.querySelector(".add-btn");
 
-
 addBtn.addEventListener("click", (event) => {
     event.preventDefault();
     modalContainer.innerHTML = "";
     addBtn.innerHTML = "valider";
 
     //previous button
-    const previousBtn = newElement("i", ["fa-solid", "fa-arrow-left", "fa-xl"]);
+    const previousBtn = newElement("i", ["fa-solid", "fa-arrow-left", "fa-xl", "previous-btn"]);
     previousBtn.style.cursor = "pointer";
     modalHeader.prepend(previousBtn);
     modalHeader.style.justifyContent = "space-between";
+
+    previousBtn.addEventListener("click", () => {
+        updateEditModal();
+    });
 
     //new title
     title.innerHTML = "Ajout photo";
