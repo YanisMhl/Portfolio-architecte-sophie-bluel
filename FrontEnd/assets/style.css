@@ -270,6 +270,11 @@ footer nav ul {
 	color: red;
 }
 
+.connexion-form-input {
+	width: 380px;
+	height: 50px;
+}
+
 dialog {
 	width: 630px;
 	height: 688px;
@@ -412,10 +417,13 @@ dialog h3 {
 	width: 100%;
 }
 
- .photo-form-input {
+ .photo-form-input, .connexion-form-input {
 	border: none;
 	background: #FFF;
 	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09); 
+}
+
+.photo-form-input {
 	padding: 20px;
 }
 
