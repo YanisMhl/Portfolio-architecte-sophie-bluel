@@ -100,7 +100,6 @@ if (localStorage.getItem("is_connected") === "true") {
 
 const editBtn = document.querySelector(".admin-edit");
 const closeBtn = document.querySelector(".close-btn");
-const addBtn = document.querySelector(".add-btn");
 const modal = document.querySelector("dialog");
 const modalContainer = document.querySelector(".modal-container");
 const modalFooter = document.querySelector(".modal-footer");
@@ -115,7 +114,10 @@ editBtn.addEventListener("click", () => {
     }
     modalContainer.innerHTML = "";
     miniGallery.innerHTML = "";
-    modalFooter.lastChild.innerHTML = "Ajouter une photo";
+    
+    modalFooter.lastElementChild.innerHTML = "Ajouter une photo";
+    modalFooter.lastElementChild.type = "";
+    console.log(modalFooter.lastElementChild);
 
     title.innerHTML = "Galerie photo";
     modalContainer.appendChild(title);
@@ -158,9 +160,11 @@ closeBtn.addEventListener("click", () => {
     modal.close();
 });
 
+const addBtn = document.querySelector(".add-btn");
 
 
-addBtn.addEventListener("click", () => {
+addBtn.addEventListener("click", (event) => {
+    event.preventDefault();
     modalContainer.innerHTML = "";
     addBtn.innerHTML = "valider";
     //new title
@@ -255,11 +259,8 @@ addBtn.addEventListener("click", () => {
     photoCategory.appendChild(photoCategorySelect);
     photoForm.appendChild(photoCategory);
 
-    modalFooter.removeChild(addBtn);
     modal.removeChild(modalFooter);
-
-    const validateBtn = newElement("button", ["btn"], {innerHTML: "valider", type: "submit"});
-    modalFooter.appendChild(validateBtn);
+    addBtn.type = "submit";
     photoForm.appendChild(modalFooter);
     modalContainer.appendChild(photoForm);
 
