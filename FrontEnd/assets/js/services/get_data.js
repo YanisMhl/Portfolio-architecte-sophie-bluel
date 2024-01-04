@@ -33,7 +33,7 @@ export async function uploadWork(work) {
                 Authorization: `Bearer ${localStorage.getItem("user_token")}`,
                 "Content-Type": "application/json"
             },
-            body: work
+            body: JSON.stringify(work)
         });
     } catch(err) {
         throw err;

@@ -1,5 +1,6 @@
 import Category from "../models/category.js";
-import { getWork, getCategories, deleteWork } from "../services/get_data.js";
+import Work from "../models/work.js";
+import { getWork, getCategories, deleteWork, uploadWork } from "../services/get_data.js";
 
 const workData = await getWork();
 const categoriesData = await getCategories();
@@ -106,7 +107,6 @@ editBtn.addEventListener("click", () => {
         imgContainer.appendChild(trashIcon);
 
         trashIcon.addEventListener("click", async () => {
-            console.log("cliqué !");
             try {
                 const deletedWorkId = await deleteWork(work.id);
                 //update l'affichage des work dans la modale
@@ -115,7 +115,6 @@ editBtn.addEventListener("click", () => {
                 const newWorkData = workData.filter((newWork) => newWork.id !== work.id);
                 updateGallery(newWorkData, galleryElement);
 
-                console.log(deletedWorkId);
             } catch (error) {
                 alert(error);
             }
@@ -248,7 +247,6 @@ addBtn.addEventListener("click", () => {
     photoCategory.appendChild(photoCategorySelect);
     photoForm.appendChild(photoCategory);
 
-    console.log(modalContainer);
     const modalFooter = document.querySelector(".modal-footer");
     modalFooter.removeChild(addBtn);
     modal.removeChild(modalFooter);
@@ -260,19 +258,32 @@ addBtn.addEventListener("click", () => {
     modalFooter.appendChild(validateBtn);
     photoForm.appendChild(modalFooter);
     modalContainer.appendChild(photoForm);
-    console.log(modalContainer);
 
     photoForm.addEventListener("submit", (event) => {
         event.preventDefault();
         if (fileInput.files.length === 0) {
             alert("Veiller sélectionner un fichier.");
+            return ;
         }
 
         if (photoTitleInput.value === "" || photoCategorySelect.value === "") {
             alert("Veiller remplir tous les champs du formulaire.");
+            return ;
         }
         const selectedFile = fileInput.files[0];
-        console.log(selectedFile);
-        console.log(`titre : ${photoTitleInput.value}\ncatégorie : ${photoCategorySelect.value}`);
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const workUrl = e.target.result;
+            let newWork = {
+                //id: workData[workData.length - 1].id + 1,
+                title: photoTitleInput.value,
+                imageUrl: workUrl,
+                categoryId: photoCategorySelect.selectedIndex + 1
+               // userId: localStorage.getItem("user_id"),
+            };
+            console.log(newWork);
+            uploadWork(newWork);
+        }
+        reader.readAsDataURL(selectedFile);
     });
 });
