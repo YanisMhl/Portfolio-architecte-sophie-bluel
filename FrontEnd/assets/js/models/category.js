@@ -10,4 +10,11 @@ export default class Category {
         btn.innerText = this.name;
         return btn;
     }
+
+    get categoryOption() {
+        const option = document.createElement("option");
+        option.value = this.id;
+        option.innerHTML = this.name;
+        return option;
+    }
 }

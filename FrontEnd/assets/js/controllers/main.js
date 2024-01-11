@@ -237,12 +237,7 @@ addBtn.addEventListener("click", (event) => {
     const photoCategorySelect = newElement("select", ["photo-form-input"], {id: "categorie", name: "categorie"});
     categoriesData.forEach((cat) => {
         if (cat.id !== 0) {
-            console.log(cat);
-            const categoryOption = document.createElement("option");
-            categoryOption.value = cat.name.toLowerCase();
-            categoryOption.innerHTML = cat.name;
-            //const categoryOption = newElement("option", {value: cat.name.toLowerCase(), innerHTML: cat.name});
-            //console.log(categoryOption);
+            const categoryOption = cat.categoryOption;
             photoCategorySelect.appendChild(categoryOption);
         }
     });
