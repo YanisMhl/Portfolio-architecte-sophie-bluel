@@ -26,6 +26,7 @@ export async function deleteWork(id) {
 
 //fonction pour upload le work
 export async function uploadWork(work) {
+    console.log("on y est");
     try {
         const response = await fetch("http://localhost:5678/api/works", {
             method: "POST",

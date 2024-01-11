@@ -66,6 +66,23 @@
 					<h3>Galerie photo</h3>
 					<div class="mini-gallery">
 					</div>
+					<form class="hidden photo-form" method="post">
+						<div class="photo-container">
+							<i class="fa-regular fa-image fa-5x"></i>
+							<button class="photo-btn">+ Ajouter photo</button>
+							<input type="file" accept="image/*" id="file-upload" name="file-upload" class="file-input">
+							<p>jpg, png : 4mo max</p>
+						</div>
+						<div class="photo-title">
+							<label for="titre" class="photo-form-label">Titre </label>
+							<input type="text" id="titre" name="titre" class="photo-form-input">
+						</div>
+						<div class="photo-category">
+							<label for="categorie" class="photo-form-label">Catégorie </label>
+							<select name="categorie" id="categorie" class="photo-form-input">
+							</select>
+						</div>
+					</form>
 				</div>
 				<div class="modal-footer">
 					<div class="grey-stroke"></div>

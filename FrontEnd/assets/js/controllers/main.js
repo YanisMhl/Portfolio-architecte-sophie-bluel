@@ -1,6 +1,6 @@
 import Category from "../models/category.js";
 import Work from "../models/work.js";
-import { getWork, getCategories, deleteWork, uploadWork } from "../services/get_data.js";
+import { getWork, getCategories, uploadWork } from "../services/get_data.js";
 
 const workData = await getWork();
 const categoriesData = await getCategories();
@@ -102,9 +102,11 @@ const editBtn = document.querySelector(".admin-edit");
 const closeBtn = document.querySelector(".close-btn");
 const modal = document.querySelector("dialog");
 const modalContainer = document.querySelector(".modal-container");
+const photoForm = document.querySelector(".photo-form");
 const modalHeader = document.querySelector(".modal-header");
 const modalFooter = document.querySelector(".modal-footer");
 const miniGallery = document.querySelector(".mini-gallery");
+const fileInput = document.querySelector(".file-input");
 const title = document.createElement("h3");
 
 function updateEditModal() {
@@ -123,7 +125,6 @@ function updateEditModal() {
     
     modalFooter.lastElementChild.innerHTML = "Ajouter une photo";
     modalFooter.lastElementChild.type = "";
-    console.log(modalFooter.lastElementChild);
 
     title.innerHTML = "Galerie photo";
     modalContainer.appendChild(title);
@@ -140,6 +141,7 @@ editBtn.addEventListener("click", () => {
 
 closeBtn.addEventListener("click", () => {
     modal.close();
+    fileInput.value = "";
 });
 
 const addBtn = document.querySelector(".add-btn");
@@ -164,21 +166,26 @@ addBtn.addEventListener("click", (event) => {
     modalContainer.appendChild(title);
 
     //Formulaire
-    const photoForm = newElement("form", ["photo-form"], {method: "post", enctype: "multipart/form-data"});
+    photoForm.classList.remove("hidden");
+    modalContainer.appendChild(photoForm);
 
-    //photo-container
-    const photoContainer = newElement("div", ["photo-container"]);
-
-    //icône 
-    const photoIcon = newElement("i", ["fa-regular", "fa-image", "fa-5x"]);
-    photoContainer.appendChild(photoIcon);
-
+    //remettre les éléments en display block une fois de retour sur la page
+    const photoContainer = document.querySelector(".photo-container");
+    if (photoContainer.lastElementChild.nodeName === "IMG") {
+        for (const element of photoContainer.children) {
+            if (element.nodeName === "IMG") {
+                console.log("image !");
+                photoContainer.removeChild(element);
+            }
+            if (element.nodeName !== "INPUT" && element.nodeName !== "IMG") {
+            element.style.display = "block";
+            }
+        }
+    }
 
 
     //photo btn
-    const photoBtn = newElement("button", ["photo-btn"], {innerHTML: "+ Ajouter photo"});
-    photoContainer.appendChild(photoBtn);
-
+    const photoBtn = document.querySelector(".photo-btn");
     photoBtn.addEventListener("click", (event) => {
         event.preventDefault();
         fileInput.click();
@@ -186,55 +193,25 @@ addBtn.addEventListener("click", (event) => {
 
 
     //file input
-    const fileInput = newElement("input", ["file-input"], {type: "file", accept: "image/*", id: "file-upload", name: "file-upload"});
-    photoContainer.appendChild(fileInput);
-
     fileInput.addEventListener("change", () => {
+        console.log(fileInput);
         const selectedFile = fileInput.files[0];
         if (selectedFile) {
             const reader = new FileReader();
             reader.onload = (e) => {
                 const imagePreview = newElement("img", ["image-preview"], {src: e.target.result});
-                photoIcon.style.display = "none";
-                fileInput.style.display = "none";
-                photoInfo.style.display = "none";
-                photoBtn.style.display = "none";
+                for (const element of photoContainer.children) {
+                   element.style.display = "none";
+                }
                 photoContainer.appendChild(imagePreview);
             };
             reader.readAsDataURL(selectedFile);
         }
     });
 
-    //photo info
-    const photoInfo = newElement("p", null, {innerHTML: "jpg, png : 4mo max"});
-    photoContainer.appendChild(photoInfo);
-
-    photoForm.appendChild(photoContainer);
-
-    //Photo title
-    const photoTitle = newElement("div", ["photo-title"]);
-
-    //label
-    const photoTitleLabel = newElement("label", ["photo-form-label"], {for: "titre", innerHTML: "Titre "});
-    photoTitle.appendChild(photoTitleLabel);
-
-
-    //title input
-    const photoTitleInput = newElement("input", ["photo-form-input"], {type: "text", id: "titre", name: "titre"});
-    photoTitle.appendChild(photoTitleInput);
-
-    photoForm.appendChild(photoTitle);
-
-    //category 
-    const photoCategory = newElement("div", ["photo-category"]);
-
-    //category label
-    const photoCategoryLabel = newElement("label", ["photo-form-label"], {for: "categorie", innerHTML: "Catégorie : "});
-    photoCategory.appendChild(photoCategoryLabel);
-
-
     //category select
-    const photoCategorySelect = newElement("select", ["photo-form-input"], {id: "categorie", name: "categorie"});
+    const photoCategorySelect = document.querySelector(".photo-category").lastElementChild;
+    photoCategorySelect.innerHTML = "";
     categoriesData.forEach((cat) => {
         if (cat.id !== 0) {
             const categoryOption = cat.categoryOption;
@@ -242,14 +219,13 @@ addBtn.addEventListener("click", (event) => {
         }
     });
     photoCategorySelect.selectedIndex = -1;
+    console.log(modal);
+    if (modal.lastElementChild.classList.contains("modal-footer")) {
+        modal.removeChild(modalFooter);
+        addBtn.type = "submit";
+        photoForm.appendChild(modalFooter);
+    }
 
-    photoCategory.appendChild(photoCategorySelect);
-    photoForm.appendChild(photoCategory);
-
-    modal.removeChild(modalFooter);
-    addBtn.type = "submit";
-    photoForm.appendChild(modalFooter);
-    modalContainer.appendChild(photoForm);
 
     photoForm.addEventListener("submit", (event) => {
         event.preventDefault();
@@ -257,25 +233,35 @@ addBtn.addEventListener("click", (event) => {
             alert("Veiller sélectionner un fichier.");
             return ;
         }
-
+        const photoTitleInput = document.querySelector(".photo-title input");
+        const photoCategorySelect = document.querySelector(".photo-category select");
         if (photoTitleInput.value === "" || photoCategorySelect.value === "") {
             alert("Veiller remplir tous les champs du formulaire.");
             return ;
         }
         const selectedFile = fileInput.files[0];
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const workUrl = e.target.result;
-            let newWork = {
-                //id: workData[workData.length - 1].id + 1,
-                title: photoTitleInput.value,
-                imageUrl: workUrl,
-                categoryId: photoCategorySelect.selectedIndex + 1
-               // userId: localStorage.getItem("user_id"),
-            };
-            console.log(newWork);
-            uploadWork(newWork);
+        const formData = new FormData();
+        formData.append("image", selectedFile);
+        formData.append("title", photoTitleInput.value);
+        formData.append("category", photoCategorySelect.value);
+        try {
+             uploadWork(formData);
+        } catch (err) {
+            console.log(err);
         }
-        reader.readAsDataURL(selectedFile);
+        // const reader = new FileReader();
+        // reader.onload = (e) => {
+        //     const workUrl = e.target.result;
+        //     let newWork = {
+        //         //id: workData[workData.length - 1].id + 1,
+        //         title: photoTitleInput.value,
+        //         imageUrl: workUrl,
+        //         categoryId: photoCategorySelect.selectedIndex + 1
+        //        // userId: localStorage.getItem("user_id"),
+        //     };
+        //     console.log(newWork);
+        //     uploadWork(newWork);
+        // }
+        // reader.readAsDataURL(selectedFile);
     });
 });
