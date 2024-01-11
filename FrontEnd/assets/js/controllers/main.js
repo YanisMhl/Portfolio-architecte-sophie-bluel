@@ -129,34 +129,8 @@ function updateEditModal() {
     modalContainer.appendChild(title);
     modalContainer.appendChild(miniGallery);
     workData.forEach(work => {
-        const imgContainer = document.createElement("div");
-        imgContainer.classList.add("modal-img-container");
-
-        const trashIcon = document.createElement("i");
-        trashIcon.classList.add("fa-solid");
-        trashIcon.classList.add("fa-trash-can");
-        imgContainer.appendChild(trashIcon);
-
-        trashIcon.addEventListener("click", async () => {
-            try {
-                const deletedWorkId = await deleteWork(work.id);
-                //update l'affichage des work dans la modale
-                miniGallery.removeChild(imgContainer);
-                //update l'affichage des work dans la page home
-                const newWorkData = workData.filter((newWork) => newWork.id !== work.id);
-                updateGallery(newWorkData, galleryElement);
-
-            } catch (error) {
-                alert(error);
-            }
-        });
-
-        const img = document.createElement("img");
-        img.src = work.imageUrl;
-        img.classList.add("modal-img");
-        imgContainer.appendChild(img);
-
-        miniGallery.appendChild(imgContainer);
+        const miniWork = work.workMini(miniGallery, workData, updateGallery, galleryElement);
+        miniGallery.appendChild(miniWork);
     });
 }
 
