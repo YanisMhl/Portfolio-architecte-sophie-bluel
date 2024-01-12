@@ -239,6 +239,10 @@ input[type="submit"]{
 	cursor: pointer;
 }
 
+input[type="submit"]:hover {
+	background-color: #0E2F28;
+}
+
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
