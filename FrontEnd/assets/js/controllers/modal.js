@@ -1,4 +1,5 @@
-import { deleteWork, uploadWork, getCategories } from "../services/get_data.js";
+import { deleteWork, uploadWork, getCategories, getWork } from "../services/get_data.js";
+import { updateGallery } from "./main.js";
 
 const closeBtn = document.querySelector(".close-btn");
 const modal = document.querySelector("dialog");
@@ -10,8 +11,10 @@ const miniGallery = document.querySelector(".mini-gallery");
 const fileInput = document.querySelector(".file-input");
 const title = document.createElement("h3");
 const addBtn = document.querySelector(".add-btn");
+const galleryElement = document.querySelector(".gallery");
 
 const categoriesData = await getCategories();
+const workData = await getWork();
 
 
 export function updateEditModal(workData, updateGallery) {
@@ -42,7 +45,7 @@ export function updateEditModal(workData, updateGallery) {
                 miniGallery.removeChild(container);
 
                 const newWorkData = workData.filter((newWork) => newWork.id !== id);
-                updateGallery(newWorkData);
+                updateGallery(newWorkData, galleryElement);
             } catch (error) {
                 alert(error);
             }
@@ -72,7 +75,8 @@ addBtn.addEventListener("click", (event) => {
     modalHeader.style.justifyContent = "space-between";
 
     previousBtn.addEventListener("click", () => {
-        updateEditModal();
+        updateEditModal(workData, updateGallery);
+        fileInput.value = "";
     });
 
     //new title
@@ -138,17 +142,24 @@ addBtn.addEventListener("click", (event) => {
     formFooter.classList.remove("hidden");
 });
 
+const photoTitleInput = document.querySelector(".photo-title input");
+const photoCategorySelect = document.querySelector(".photo-category select");
+const validateBtn = document.querySelector(".ok-btn");
+
 photoForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+    console.log(fileInput.files);
+    console.log(fileInput.value);
     if (fileInput.files.length === 0) {
         alert("Veiller sélectionner un fichier.");
         return;
-    }
-    const photoTitleInput = document.querySelector(".photo-title input");
-    const photoCategorySelect = document.querySelector(".photo-category select");
-    if (photoTitleInput.value === "" || photoCategorySelect.value === "") {
+    } else if (photoTitleInput.value === "" || photoCategorySelect.value === "") {
         alert("Veiller remplir tous les champs du formulaire.");
         return;
+    } else {
+        console.log(validateBtn);
+        console.log("plus validé");
+        validateBtn.disabled = false;
     }
     const selectedFile = fileInput.files[0];
     const formData = new FormData();
@@ -157,6 +168,7 @@ photoForm.addEventListener("submit", async (event) => {
     formData.append("category", parseInt(photoCategorySelect.value));
     try {
         const newWork = await uploadWork(formData);
+        fileInput.value = "";
         modal.close();
     } catch (err) {
         alert(err);

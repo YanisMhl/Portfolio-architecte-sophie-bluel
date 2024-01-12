@@ -8,12 +8,12 @@ const categoriesData = await getCategories();
 const galleryElement = document.querySelector(".gallery");
 const filtersElement = document.querySelector(".filtres");
 
-function updateGallery(data) {
+export function updateGallery(data, gallery) {
     //reset galleryElement
-    galleryElement.innerHTML = "";
+    gallery.innerHTML = "";
     /*run through the work data and add the html needed*/
     for (let i = 0; i < data.length; i++) {
-        galleryElement.appendChild(data[i].workFigure);
+        gallery.appendChild(data[i].workFigure);
     }
 }
 
@@ -34,15 +34,15 @@ function updateCategories(data, filters) {
             //DATABASE
             if (category.id !== 0) {
                 const filteredData = workData.filter((work) => work.categoryId === category.id);
-                updateGallery(filteredData);
+                updateGallery(filteredData, galleryElement);
             } else {
-                updateGallery(workData);
+                updateGallery(workData, galleryElement);
             }
         });
     }
 }
 
-updateGallery(workData);
+updateGallery(workData, galleryElement);
 updateCategories(categoriesData, filtersElement);
 
 
