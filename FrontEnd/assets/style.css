@@ -373,11 +373,6 @@ dialog h3 {
 	background: #B3B3B3;
 }
 
-.add-btn {
-	padding-left: 40px;
-	padding-right: 40px;
-}
-
 .photo-container {
 	display: flex;
 	flex-direction: column;
@@ -453,11 +448,18 @@ dialog h3 {
 	max-height: 170px;
 }
 
-.ok-btn {
+.ok-btn, .add-btn {
 	color: white;
 	border: none;
 	border-radius: 60px;
 	background: #1D6154;
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+.ok-btn {
+	padding-left: 80px;
+	padding-right: 80px;
 }
 
 .ok-btn:disabled {
