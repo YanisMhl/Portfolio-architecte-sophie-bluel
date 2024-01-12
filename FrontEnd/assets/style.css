@@ -449,6 +449,17 @@ dialog h3 {
 	max-height: 170px;
 }
 
+.ok-btn {
+	color: white;
+	border: none;
+	border-radius: 60px;
+	background: #1D6154;
+}
+
+.ok-btn:disabled {
+	background: #A7A7A7;
+}
+
 footer {
 	color: #000;
 	font-family: "Work Sans";

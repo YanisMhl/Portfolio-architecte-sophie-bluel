@@ -11,6 +11,7 @@ const miniGallery = document.querySelector(".mini-gallery");
 const fileInput = document.querySelector(".file-input");
 const title = document.createElement("h3");
 const addBtn = document.querySelector(".add-btn");
+const validateBtn = document.querySelector(".ok-btn");
 const galleryElement = document.querySelector(".gallery");
 
 const categoriesData = await getCategories();
@@ -57,12 +58,13 @@ export function updateEditModal(workData, updateGallery) {
 
 closeBtn.addEventListener("click", () => {
     modal.close();
-    fileInput.value = "";
 });
 
 addBtn.addEventListener("click", (event) => {
     modalContainer.innerHTML = "";
     modalFooter.style.display = "none";
+    validateBtn.disabled = true;
+    fileInput.value = "";
 
     //previous button
     const previousBtn = document.createElement("i");
@@ -144,12 +146,35 @@ addBtn.addEventListener("click", (event) => {
 
 const photoTitleInput = document.querySelector(".photo-title input");
 const photoCategorySelect = document.querySelector(".photo-category select");
-const validateBtn = document.querySelector(".ok-btn");
+
+fileInput.addEventListener("change", () => {
+
+    if (fileInput.files.length !== 0 && photoTitleInput.value !== "" && photoCategorySelect.value !== "") {
+        validateBtn.disabled = false;
+    } else {
+        validateBtn.disabled = true;
+    }
+});
+
+photoTitleInput.addEventListener("input", () => {
+    if (fileInput.files.length !== 0 && photoTitleInput.value !== "" && photoCategorySelect.value !== "") {
+        validateBtn.disabled = false;
+    } else {
+        validateBtn.disabled = true;
+    }
+})
+
+photoCategorySelect.addEventListener("change", () => {
+    if (fileInput.files.length !== 0 && photoTitleInput.value !== "" && photoCategorySelect.value !== "") {
+        validateBtn.disabled = false;
+    } else {
+        validateBtn.disabled = true;
+    }
+});
+
 
 photoForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-    console.log(fileInput.files);
-    console.log(fileInput.value);
     if (fileInput.files.length === 0) {
         alert("Veiller sélectionner un fichier.");
         return;
@@ -159,7 +184,7 @@ photoForm.addEventListener("submit", async (event) => {
     } else {
         console.log(validateBtn);
         console.log("plus validé");
-        validateBtn.disabled = false;
+
     }
     const selectedFile = fileInput.files[0];
     const formData = new FormData();
@@ -168,7 +193,6 @@ photoForm.addEventListener("submit", async (event) => {
     formData.append("category", parseInt(photoCategorySelect.value));
     try {
         const newWork = await uploadWork(formData);
-        fileInput.value = "";
         modal.close();
     } catch (err) {
         alert(err);
