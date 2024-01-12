@@ -350,7 +350,7 @@ dialog h3 {
 	height: 100px;
 }
 
-.modal-footer {
+.modal-footer, .form-footer {
 	margin-top: 80px;
 	display: flex;
 	flex-direction: column;

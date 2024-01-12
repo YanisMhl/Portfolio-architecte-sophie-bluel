@@ -66,7 +66,7 @@
 					<h3>Galerie photo</h3>
 					<div class="mini-gallery">
 					</div>
-					<form class="hidden photo-form" method="post">
+					<form class="hidden photo-form" method="post" enctype="multipart/form-data">
 						<div class="photo-container">
 							<i class="fa-regular fa-image fa-5x"></i>
 							<button class="photo-btn">+ Ajouter photo</button>
@@ -81,6 +81,10 @@
 							<label for="categorie" class="photo-form-label">Catégorie </label>
 							<select name="categorie" id="categorie" class="photo-form-input">
 							</select>
+						</div>
+						<div class="hidden form-footer">
+							<div class="grey-stroke"></div>
+							<button class="btn ok-btn" type="submit">Valider</button>
 						</div>
 					</form>
 				</div>

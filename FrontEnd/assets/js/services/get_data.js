@@ -5,7 +5,7 @@ import Category from '../models/category.js';
 
 export async function getWork() {
     const data = await fetch("http://localhost:5678/api/works").then(response => response.json());
-    
+
     return data.map((work) => new Work(work));
 }
 
@@ -25,25 +25,23 @@ export async function deleteWork(id) {
 }
 
 //fonction pour upload le work
-export async function uploadWork(work) {
-    console.log("on y est");
-    try {
-        const response = await fetch("http://localhost:5678/api/works", {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("user_token")}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(work)
-        });
-    } catch(err) {
-        throw err;
-    }
+export async function uploadWork(body) {
+    const response = await fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("user_token")}`
+        },
+        body
+    })
+    .then(response => response.json());
+    console.log(response);
+    return new Work(response);
+    
 }
 
 export async function getCategories() {
     const data = await fetch("http://localhost:5678/api/categories").then(response => response.json());
-    
+
     return data.map((category) => new Category(category.id, category.name));
 }
 
@@ -58,7 +56,7 @@ export async function loginUser(userEmail, userPassword) {
     try {
         const response = await fetch("http://localhost:5678/api/users/login", {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: userData
         });
         if (response.ok) {
@@ -68,7 +66,7 @@ export async function loginUser(userEmail, userPassword) {
         } else {
             throw new Error(response.status);
         }
-    } catch(err) {
+    } catch (err) {
         throw err;
     }
 }

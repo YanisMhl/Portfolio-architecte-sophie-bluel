@@ -1,5 +1,4 @@
 import Category from "./category.js";
-import { deleteWork } from "../services/get_data.js";
 
 export default class Work {
     constructor(work) {
@@ -8,7 +7,8 @@ export default class Work {
         this.imageUrl = work.imageUrl;
         this.categoryId = work.categoryId;
         this.userId = work.userId;
-        this.category = new Category(work.category.id, work.category.name);
+        if (work.category)
+            this.category = new Category(work.category.id, work.category.name);
     };
 
     get workFigure() {
@@ -25,34 +25,23 @@ export default class Work {
         return figElement;
     }
 
-     workMini(mini_gallery, data, updateFunction, gallery) {
+    get workMini() {
         const container = document.createElement("div");
         container.classList.add("modal-img-container");
+        container.id = `work-mini-${this.id}`;
 
         const trashIcon = document.createElement("i");
         trashIcon.classList.add("fa-solid");
         trashIcon.classList.add("fa-trash-can");
 
-        trashIcon.addEventListener("click", async () => {
-            try {
-                const deletedWorkId = await deleteWork(this.id);
-                mini_gallery.removeChild(container);
+        const img = document.createElement("img");
+        img.src = this.imageUrl;
+        img.classList.add("modal-img");
 
-                const newWorkData = data.filter((newWork) => newWork.id !== this.id);
-                updateFunction(newWorkData, gallery);
-            } catch(error) {
-                alert(error);
-            }
-        });
+        container.appendChild(trashIcon);
+        container.appendChild(img);
 
-       const img = document.createElement("img");
-       img.src = this.imageUrl;
-       img.classList.add("modal-img");
-       
-       container.appendChild(trashIcon);
-       container.appendChild(img);
-
-        return container;
+        return { container, trashIcon, id: this.id };
     }
 }
 
