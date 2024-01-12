@@ -62,7 +62,11 @@ addBtn.addEventListener("click", (event) => {
     modalFooter.style.display = "none";
 
     //previous button
-    const previousBtn = newElement("i", ["fa-solid", "fa-arrow-left", "fa-xl", "previous-btn"]);
+    const previousBtn = document.createElement("i");
+    previousBtn.classList.add("fa-solid");
+    previousBtn.classList.add("fa-arrow-left");
+    previousBtn.classList.add("fa-xl");
+    previousBtn.classList.add("previous-btn");
     previousBtn.style.cursor = "pointer";
     modalHeader.prepend(previousBtn);
     modalHeader.style.justifyContent = "space-between";
@@ -109,7 +113,9 @@ addBtn.addEventListener("click", (event) => {
         if (selectedFile) {
             const reader = new FileReader();
             reader.onload = (e) => {
-                const imagePreview = newElement("img", ["image-preview"], { src: e.target.result });
+                const imagePreview = document.createElement("img");
+                imagePreview.classList.add("image-preview");
+                imagePreview.src = e.target.result;
                 for (const element of photoContainer.children) {
                     element.style.display = "none";
                 }
@@ -159,21 +165,3 @@ photoForm.addEventListener("submit", async (event) => {
         alert(err);
     }
 });
-
-function newElement(type, classnames, attributes = {}) {
-    const result = document.createElement(type);
-    if (classnames) {
-        if (typeof (classnames) === "string") {
-            result.classList.add(classnames);
-        }
-        else {
-            for (let i = 0; i < classnames.length; i++) {
-                result.classList.add(classnames[i]);
-            }
-        }
-    }
-    for (const [key, value] of Object.entries(attributes)) {
-        result[key] = value;
-    }
-    return result;
-}
