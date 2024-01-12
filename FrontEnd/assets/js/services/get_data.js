@@ -33,10 +33,8 @@ export async function uploadWork(body) {
         },
         body
     })
-    .then(response => response.json());
-    console.log(response);
+        .then(response => response.json());
     return new Work(response);
-    
 }
 
 export async function getCategories() {

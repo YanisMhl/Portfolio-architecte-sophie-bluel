@@ -88,7 +88,6 @@ addBtn.addEventListener("click", (event) => {
     if (photoContainer.lastElementChild.nodeName === "IMG") {
         for (const element of photoContainer.children) {
             if (element.nodeName === "IMG") {
-                console.log("image !");
                 photoContainer.removeChild(element);
             }
             if (element.nodeName !== "INPUT" && element.nodeName !== "IMG") {
@@ -108,7 +107,6 @@ addBtn.addEventListener("click", (event) => {
 
     //file input
     fileInput.addEventListener("change", () => {
-        console.log(fileInput);
         const selectedFile = fileInput.files[0];
         if (selectedFile) {
             const reader = new FileReader();
@@ -159,7 +157,6 @@ photoForm.addEventListener("submit", async (event) => {
     formData.append("category", parseInt(photoCategorySelect.value));
     try {
         const newWork = await uploadWork(formData);
-        console.log(newWork);
         modal.close();
     } catch (err) {
         alert(err);
