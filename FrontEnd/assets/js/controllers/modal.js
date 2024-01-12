@@ -147,31 +147,17 @@ addBtn.addEventListener("click", (event) => {
 const photoTitleInput = document.querySelector(".photo-title input");
 const photoCategorySelect = document.querySelector(".photo-category select");
 
-fileInput.addEventListener("change", () => {
-
+function updateValidationButton() {
     if (fileInput.files.length !== 0 && photoTitleInput.value !== "" && photoCategorySelect.value !== "") {
         validateBtn.disabled = false;
     } else {
         validateBtn.disabled = true;
     }
-});
+}
 
-photoTitleInput.addEventListener("input", () => {
-    if (fileInput.files.length !== 0 && photoTitleInput.value !== "" && photoCategorySelect.value !== "") {
-        validateBtn.disabled = false;
-    } else {
-        validateBtn.disabled = true;
-    }
-})
-
-photoCategorySelect.addEventListener("change", () => {
-    if (fileInput.files.length !== 0 && photoTitleInput.value !== "" && photoCategorySelect.value !== "") {
-        validateBtn.disabled = false;
-    } else {
-        validateBtn.disabled = true;
-    }
-});
-
+fileInput.addEventListener("change", updateValidationButton);
+photoTitleInput.addEventListener("input", updateValidationButton);
+photoCategorySelect.addEventListener("change", updateValidationButton);
 
 photoForm.addEventListener("submit", async (event) => {
     event.preventDefault();
