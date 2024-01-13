@@ -59,7 +59,7 @@ closeBtn.addEventListener("click", () => {
     modal.close();
 });
 
-addBtn.addEventListener("click", (event) => {
+addBtn.addEventListener("click", () => {
     modalContainer.innerHTML = "";
     modalFooter.style.display = "none";
     validateBtn.disabled = true;
