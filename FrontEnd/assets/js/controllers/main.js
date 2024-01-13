@@ -2,8 +2,8 @@ import Category from "../models/category.js";
 import { getWork, getCategories } from "../services/get_data.js";
 import { updateEditModal } from "./modal.js";
 
-const workData = await getWork();
-const categoriesData = await getCategories();
+let workData = await getWork();
+let categoriesData = await getCategories();
 
 const galleryElement = document.querySelector(".gallery");
 const filtersElement = document.querySelector(".filtres");
@@ -77,7 +77,8 @@ if (localStorage.getItem("is_connected") === "true") {
 const editBtn = document.querySelector(".admin-edit");
 
 
-editBtn.addEventListener("click", () => {
+editBtn.addEventListener("click", async () => {
+    workData = await getWork();
     updateEditModal(workData, updateGallery);
 });
 

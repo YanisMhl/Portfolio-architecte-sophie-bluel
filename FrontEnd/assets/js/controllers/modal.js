@@ -44,7 +44,6 @@ export function updateEditModal(workData, updateGallery) {
             try {
                 await deleteWork(id);
                 miniGallery.removeChild(container);
-
                 const newWorkData = workData.filter((newWork) => newWork.id !== id);
                 updateGallery(newWorkData, galleryElement);
             } catch (error) {
