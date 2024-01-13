@@ -15,7 +15,7 @@ const validateBtn = document.querySelector(".ok-btn");
 const galleryElement = document.querySelector(".gallery");
 
 const categoriesData = await getCategories();
-const workData = await getWork();
+let workData = await getWork();
 
 
 export function updateEditModal(workData, updateGallery) {
@@ -44,8 +44,8 @@ export function updateEditModal(workData, updateGallery) {
             try {
                 await deleteWork(id);
                 miniGallery.removeChild(container);
-                const newWorkData = workData.filter((newWork) => newWork.id !== id);
-                updateGallery(newWorkData, galleryElement);
+                workData = await getWork();
+                updateGallery(workData, galleryElement);
             } catch (error) {
                 alert(error);
             }
@@ -179,6 +179,8 @@ photoForm.addEventListener("submit", async (event) => {
     formData.append("category", parseInt(photoCategorySelect.value));
     try {
         const newWork = await uploadWork(formData);
+        workData = await getWork();
+        updateGallery(workData, galleryElement);
         modal.close();
     } catch (err) {
         alert(err);
