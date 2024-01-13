@@ -161,17 +161,6 @@ photoCategorySelect.addEventListener("change", updateValidationButton);
 
 photoForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-    if (fileInput.files.length === 0) {
-        alert("Veiller sélectionner un fichier.");
-        return;
-    } else if (photoTitleInput.value === "" || photoCategorySelect.value === "") {
-        alert("Veiller remplir tous les champs du formulaire.");
-        return;
-    } else {
-        console.log(validateBtn);
-        console.log("plus validé");
-
-    }
     const selectedFile = fileInput.files[0];
     const formData = new FormData();
     formData.append("image", selectedFile);
