@@ -90,7 +90,6 @@ addBtn.addEventListener("click", (event) => {
 
     //remettre les éléments en display block une fois de retour sur la page
     const photoContainer = document.querySelector(".photo-container");
-    if (photoContainer.lastElementChild.nodeName === "IMG") {
         for (const element of photoContainer.children) {
             if (element.nodeName === "IMG") {
                 photoContainer.removeChild(element);
@@ -98,7 +97,6 @@ addBtn.addEventListener("click", (event) => {
             if (element.nodeName !== "INPUT" && element.nodeName !== "IMG") {
                 element.style.display = "block";
             }
-        }
     }
 
 
@@ -120,6 +118,9 @@ addBtn.addEventListener("click", (event) => {
                 imagePreview.classList.add("image-preview");
                 imagePreview.src = e.target.result;
                 for (const element of photoContainer.children) {
+                    if (element.nodeName === "IMG") {
+                        element.remove();
+                    }
                     element.style.display = "none";
                 }
                 photoContainer.appendChild(imagePreview);
